@@ -29,6 +29,16 @@ def adicionar_tarefa():
     conn.close()
     return jsonify({'message': 'Tarefa adicionada com sucesso!'}), 201
 
+# Funcionalidade 2: Marcar Tarefa como Concluída
+@app.route('/concluir_tarefa/<int:id>', methods=['PUT'])
+def concluir_tarefa(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('UPDATE tarefas SET concluida = TRUE WHERE id = %s', (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'message': 'Tarefa marcada como concluída!'}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

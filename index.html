@@ -12,6 +12,10 @@
     <input type="text" id="descricao" placeholder="Descrição da tarefa">
     <button onclick="adicionarTarefa()">Adicionar</button>
 
+    <h2>Marcar Tarefa como Concluída</h2>
+    <input type="number" id="idConcluir" placeholder="ID da tarefa">
+    <button onclick="concluirTarefa()">Concluir</button>
+
 
     <script>
         async function adicionarTarefa() {
@@ -24,6 +28,14 @@
                 body: JSON.stringify({ descricao })
             });
             alert('Tarefa adicionada!');
+        }
+
+        async function concluirTarefa() {
+            const id = document.getElementById('idConcluir').value;
+            await fetch(`/concluir_tarefa/${id}`, {
+                method: 'PUT'
+            });
+            alert('Tarefa concluída!');
         }
 
     </script>
