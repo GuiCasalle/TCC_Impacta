@@ -16,6 +16,12 @@
     <input type="number" id="idConcluir" placeholder="ID da tarefa">
     <button onclick="concluirTarefa()">Concluir</button>
 
+    <h2>Editar Tarefa</h2>
+    <input type="number" id="idEditar" placeholder="ID da tarefa">
+    <input type="text" id="novaDescricao" placeholder="Nova descrição">
+    <button onclick="editarTarefa()">Editar</button>
+
+
 
     <script>
         async function adicionarTarefa() {
@@ -38,6 +44,26 @@
             alert('Tarefa concluída!');
         }
 
+        async function editarTarefa() {
+            const id = document.getElementById('idEditar').value;
+            const novaDescricao = document.getElementById('novaDescricao').value;
+            await fetch(`/editar_tarefa/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ descricao: novaDescricao })
+            });
+            alert('Tarefa editada!');
+        }
+
+        async function removerTarefa() {
+            const id = document.getElementById('idRemover').value;
+            await fetch(`/remover_tarefa/${id}`, {
+                method: 'DELETE'
+            });
+            alert('Tarefa removida!');
+        }
     </script>
 </body>
 </html>

@@ -40,5 +40,17 @@ def concluir_tarefa(id):
     conn.close()
     return jsonify({'message': 'Tarefa marcada como concluída!'}), 200
 
+# Funcionalidade 3: Editar Tarefa
+@app.route('/editar_tarefa/<int:id>', methods=['PUT'])
+def editar_tarefa(id):
+    nova_descricao = request.json['descricao']
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('UPDATE tarefas SET descricao = %s WHERE id = %s', (nova_descricao, id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'message': 'Tarefa editada com sucesso!'}), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
