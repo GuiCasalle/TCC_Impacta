@@ -52,5 +52,16 @@ def editar_tarefa(id):
     conn.close()
     return jsonify({'message': 'Tarefa editada com sucesso!'}), 200
 
+# Funcionalidade 4: Remover Tarefa
+@app.route('/remover_tarefa/<int:id>', methods=['DELETE'])
+def remover_tarefa(id):
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute('DELETE FROM tarefas WHERE id = %s', (id,))
+    conn.commit()
+    cursor.close()
+    conn.close()
+    return jsonify({'message': 'Tarefa removida com sucesso!'}), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
